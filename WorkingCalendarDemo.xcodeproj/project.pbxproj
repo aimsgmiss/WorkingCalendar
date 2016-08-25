@@ -15,6 +15,9 @@
 		C3C17CB21D6EA0EC0072954A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3C17CB01D6EA0EC0072954A /* LaunchScreen.storyboard */; };
 		C3C17CBD1D6EA0EC0072954A /* WorkingCalendarDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C17CBC1D6EA0EC0072954A /* WorkingCalendarDemoTests.m */; };
 		C3C17CC81D6EA0EC0072954A /* WorkingCalendarDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C17CC71D6EA0EC0072954A /* WorkingCalendarDemoUITests.m */; };
+		C3C17CD71D6EA1130072954A /* WorkingCalenTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C17CD61D6EA1130072954A /* WorkingCalenTableViewController.m */; };
+		C3C17CE51D6EF5220072954A /* CalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C17CE31D6EF5220072954A /* CalendarView.m */; };
+		C3C17CE61D6EF5220072954A /* CalendarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3C17CE41D6EF5220072954A /* CalendarView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +54,11 @@
 		C3C17CC31D6EA0EC0072954A /* WorkingCalendarDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WorkingCalendarDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3C17CC71D6EA0EC0072954A /* WorkingCalendarDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkingCalendarDemoUITests.m; sourceTree = "<group>"; };
 		C3C17CC91D6EA0EC0072954A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C3C17CD51D6EA1130072954A /* WorkingCalenTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkingCalenTableViewController.h; sourceTree = "<group>"; };
+		C3C17CD61D6EA1130072954A /* WorkingCalenTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkingCalenTableViewController.m; sourceTree = "<group>"; };
+		C3C17CE21D6EF5220072954A /* CalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarView.h; sourceTree = "<group>"; };
+		C3C17CE31D6EF5220072954A /* CalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarView.m; sourceTree = "<group>"; };
+		C3C17CE41D6EF5220072954A /* CalendarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalendarView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +109,11 @@
 		C3C17CA11D6EA0EC0072954A /* WorkingCalendarDemo */ = {
 			isa = PBXGroup;
 			children = (
+				C3C17CD51D6EA1130072954A /* WorkingCalenTableViewController.h */,
+				C3C17CD61D6EA1130072954A /* WorkingCalenTableViewController.m */,
+				C3C17CE21D6EF5220072954A /* CalendarView.h */,
+				C3C17CE31D6EF5220072954A /* CalendarView.m */,
+				C3C17CE41D6EF5220072954A /* CalendarView.xib */,
 				C3C17CA51D6EA0EC0072954A /* AppDelegate.h */,
 				C3C17CA61D6EA0EC0072954A /* AppDelegate.m */,
 				C3C17CA81D6EA0EC0072954A /* ViewController.h */,
@@ -245,6 +258,7 @@
 			files = (
 				C3C17CB21D6EA0EC0072954A /* LaunchScreen.storyboard in Resources */,
 				C3C17CAF1D6EA0EC0072954A /* Assets.xcassets in Resources */,
+				C3C17CE61D6EF5220072954A /* CalendarView.xib in Resources */,
 				C3C17CAD1D6EA0EC0072954A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -271,8 +285,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3C17CAA1D6EA0EC0072954A /* ViewController.m in Sources */,
+				C3C17CD71D6EA1130072954A /* WorkingCalenTableViewController.m in Sources */,
 				C3C17CA71D6EA0EC0072954A /* AppDelegate.m in Sources */,
 				C3C17CA41D6EA0EC0072954A /* main.m in Sources */,
+				C3C17CE51D6EF5220072954A /* CalendarView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -414,6 +430,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = WorkingCalendarDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.WorkingCalendarDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -425,6 +442,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = WorkingCalendarDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.WorkingCalendarDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -496,6 +514,7 @@
 				C3C17CCE1D6EA0EC0072954A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C3C17CCF1D6EA0EC0072954A /* Build configuration list for PBXNativeTarget "WorkingCalendarDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -504,6 +523,7 @@
 				C3C17CD11D6EA0EC0072954A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C3C17CD21D6EA0EC0072954A /* Build configuration list for PBXNativeTarget "WorkingCalendarDemoUITests" */ = {
 			isa = XCConfigurationList;
@@ -512,6 +532,7 @@
 				C3C17CD41D6EA0EC0072954A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
