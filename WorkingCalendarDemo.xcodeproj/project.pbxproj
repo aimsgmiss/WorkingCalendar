@@ -56,9 +56,9 @@
 		C3C17CC91D6EA0EC0072954A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C3C17CD51D6EA1130072954A /* WorkingCalenTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkingCalenTableViewController.h; sourceTree = "<group>"; };
 		C3C17CD61D6EA1130072954A /* WorkingCalenTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkingCalenTableViewController.m; sourceTree = "<group>"; };
-		C3C17CE21D6EF5220072954A /* CalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarView.h; sourceTree = "<group>"; };
 		C3C17CE31D6EF5220072954A /* CalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarView.m; sourceTree = "<group>"; };
 		C3C17CE41D6EF5220072954A /* CalendarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalendarView.xib; sourceTree = "<group>"; };
+		C74681D91D6F2573004AD609 /* CalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarView.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,9 +111,9 @@
 			children = (
 				C3C17CD51D6EA1130072954A /* WorkingCalenTableViewController.h */,
 				C3C17CD61D6EA1130072954A /* WorkingCalenTableViewController.m */,
-				C3C17CE21D6EF5220072954A /* CalendarView.h */,
 				C3C17CE31D6EF5220072954A /* CalendarView.m */,
 				C3C17CE41D6EF5220072954A /* CalendarView.xib */,
+				C74681D91D6F2573004AD609 /* CalendarView.h */,
 				C3C17CA51D6EA0EC0072954A /* AppDelegate.h */,
 				C3C17CA61D6EA0EC0072954A /* AppDelegate.m */,
 				C3C17CA81D6EA0EC0072954A /* ViewController.h */,
