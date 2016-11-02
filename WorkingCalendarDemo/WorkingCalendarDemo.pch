@@ -1,0 +1,30 @@
+//
+//  WorkingCalendarDemo-pch.pch
+//  WorkingCalendarDemo
+//
+//  Created by JuniorKey on 11/2/16.
+//  Copyright © 2016 my.JuniorKey. All rights reserved.
+//
+
+#ifndef WorkingCalendarDemo_pch_pch
+#define WorkingCalendarDemo_pch_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#endif /* WorkingCalendarDemo_pch_pch */
+
+#define kScreenWidth                    [UIScreen mainScreen].bounds.size.width
+#define kScreenHeight                   [UIScreen mainScreen].bounds.size.height
+#define IS_IPHONE_4                     (fabs((double)kScreenHeight - (double )480) < DBL_EPSILON )
+#define IS_IPHONE_5                     (fabs((double)kScreenHeight - (double )568) < DBL_EPSILON )
+#define IS_IPHONE_6                     (fabs((double)kScreenHeight - (double )667) < DBL_EPSILON )
+#define IS_IPHONE_6_PLUS                (fabs((double)kScreenHeight - (double )736) < DBL_EPSILON )
+#define IS_IPHONE_7                     IS_IPHONE_6
+#define IS_IPHONE_7_PLUS                IS_IPHONE_6_PLUS
+
+#define kBlackColor                     [UIColor blackColor]
+
+#define kBoldFontSize13BlackColor       @{NSFontAttributeName:[UIFont boldSystemFontOfSize:13],NSForegroundColorAttributeName: kBlackColor}
+#define kBoldFontSize15BlackColor       @{NSFontAttributeName:[UIFont boldSystemFontOfSize:15],NSForegroundColorAttributeName: kBlackColor}
+#define kSystemFontSize11BlackColor     @{NSFontAttributeName:[UIFont systemFontOfSize:11],NSForegroundColorAttributeName:kBlackColor}

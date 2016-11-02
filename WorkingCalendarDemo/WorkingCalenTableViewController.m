@@ -10,6 +10,10 @@
 #import "CalendarView.h"
 
 @interface WorkingCalenTableViewController ()<CalendarViewDelegate>
+{
+    
+    CGFloat     _calendarViewHeight;
+}
 /**
  *  日期选择按钮
  */
@@ -32,22 +36,20 @@
 
 -(void)initData
 {
-  
+    if (IS_IPHONE_4 || IS_IPHONE_5 ) {
+        _calendarViewHeight = 110;
+    } else if(IS_IPHONE_6 || IS_IPHONE_7) {
+        _calendarViewHeight = 125;
+    }else if(IS_IPHONE_6_PLUS || IS_IPHONE_7_PLUS) {
+        _calendarViewHeight = 145;
+    }
     _headerView = [[NSBundle mainBundle] loadNibNamed:@"CalendarView" owner:nil options:nil].lastObject;
     _headerView.viewController = self;
+    _headerView.frame = CGRectMake(_headerView.frame.origin.x, _headerView.frame.origin.y, kScreenWidth, _calendarViewHeight);
     self.tableView.tableHeaderView = _headerView;
 }
 
--(void)lastWeek
-{
-    
-}
 
--(void)nextWeek
-{
-
-    
-}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

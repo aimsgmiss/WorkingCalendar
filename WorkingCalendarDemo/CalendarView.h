@@ -7,12 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "CalendarButton.h"
 typedef struct _weekdays
 {
-    __unsafe_unretained  UIButton*  btn;
-    __unsafe_unretained  UILabel*   lab;
-    int                             tag;
+    __unsafe_unretained  CalendarButton*    btn;
+    int                                     tag;
 }weekdays;
 
 
@@ -24,34 +23,29 @@ typedef struct _weekdays
 @end
 @interface CalendarView : UIView
 {
+    @public
     /// 工作天数button和label数组
     weekdays        _weekdays[7];
 }
+@property (weak, nonatomic) IBOutlet UIView *contentView;
 
-@property (weak, nonatomic) IBOutlet UIButton *sundayBtn;
-@property (weak, nonatomic) IBOutlet UIButton *mondayBtn;
-@property (weak, nonatomic) IBOutlet UIButton *tuesdayBtn;
-@property (weak, nonatomic) IBOutlet UIButton *wednesdayBtn;
-@property (weak, nonatomic) IBOutlet UIButton *thursdayBtn;
-@property (weak, nonatomic) IBOutlet UIButton *fridayBtn;
-@property (weak, nonatomic) IBOutlet UIButton *saturdayBtn;
+@property (weak, nonatomic) IBOutlet CalendarButton *sundayBtn;
+@property (weak, nonatomic) IBOutlet CalendarButton *mondayBtn;
+@property (weak, nonatomic) IBOutlet CalendarButton *tuesdayBtn;
+@property (weak, nonatomic) IBOutlet CalendarButton *wednesdayBtn;
+@property (weak, nonatomic) IBOutlet CalendarButton *thursdayBtn;
+@property (weak, nonatomic) IBOutlet CalendarButton *fridayBtn;
+@property (weak, nonatomic) IBOutlet CalendarButton *saturdayBtn;
 @property (weak, nonatomic) IBOutlet UILabel *currCalendarLabel;
-@property (weak, nonatomic) IBOutlet UILabel *sundayLab;
-@property (weak, nonatomic) IBOutlet UILabel *mondayLab;
-@property (weak, nonatomic) IBOutlet UILabel *tuesdayLab;
-@property (weak, nonatomic) IBOutlet UILabel *wednesdayLab;
-@property (weak, nonatomic) IBOutlet UILabel *thursdayLab;
-@property (weak, nonatomic) IBOutlet UILabel *fridayLab;
-@property (weak, nonatomic) IBOutlet UILabel *saturdayLab;
 
 /**
  * 先前被选中的按钮
  */
-@property (nonatomic) UIButton* previousBtn;
+@property (nonatomic) CalendarButton* previousBtn;
 /**
  *  被选中的按钮
  */
-@property (nonatomic) UIButton* selectedBtn;
+@property (nonatomic) CalendarButton* selectedBtn;
 /**
  *  当前选中的日期
  */
@@ -59,11 +53,11 @@ typedef struct _weekdays
 /**
  *  处理天数时间按钮点击代理
  */
-@property (nonatomic) id<CalendarViewDelegate> delegate;
+@property (nonatomic,weak) id<CalendarViewDelegate> delegate;
 /**
  *  当前日历视图位于哪个视图控制器
  */
-@property (nonatomic) UIViewController* viewController;
+@property (nonatomic,weak) UIViewController* viewController;
 - (IBAction)btnClick:(id)sender;
 - (IBAction)lastWeekBtnClick:(id)sender;
 - (IBAction)selectCalendarBtnClick:(id)sender;

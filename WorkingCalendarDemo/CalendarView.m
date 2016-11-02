@@ -11,46 +11,55 @@
 #define     kWeekdayCount            7
 #define     kSecsOfDay               (24 * 60 * 60)
 
+@interface CalendarView()
+@property (nonatomic,weak) CalendarView*   weakSelf;
+@end
 @implementation CalendarView
 
 -(void)awakeFromNib
 {
-    _weekdays[0] = (weekdays){_sundayBtn,_sundayLab,0};
-    _weekdays[1] = (weekdays){_mondayBtn,_mondayLab,1};
-    _weekdays[2] = (weekdays){_tuesdayBtn,_tuesdayLab,2};
-    _weekdays[3] = (weekdays){_wednesdayBtn,_wednesdayLab,3};
-    _weekdays[4] = (weekdays){_thursdayBtn,_thursdayLab,4};
-    _weekdays[5] = (weekdays){_fridayBtn,_fridayLab,5};
-    _weekdays[6] = (weekdays){_saturdayBtn,_saturdayLab,6};
+    [super awakeFromNib];
+
+    _weekdays[0] = (weekdays){_sundayBtn,0};
+    _weekdays[1] = (weekdays){_mondayBtn,1};
+    _weekdays[2] = (weekdays){_tuesdayBtn,2};
+    _weekdays[3] = (weekdays){_wednesdayBtn,3};
+    _weekdays[4] = (weekdays){_thursdayBtn,4};
+    _weekdays[5] = (weekdays){_fridayBtn,5};
+    _weekdays[6] = (weekdays){_saturdayBtn,6};
     _currentDate = [NSDate dateWithTimeIntervalSinceNow:0];
+    _weakSelf = self;
     [self initWithData:_currentDate];
+  
 }
 
 -(void)initWithData:(NSDate*)currDate
 {
-    __block NSInteger   weekday;
+    __block NSInteger                  weekday;
+    
     [self getDay:currDate weekday:^(NSDateComponents *dateCompo) {
         weekday = [dateCompo weekday];
         //weekday = 1时为星期日（_sundayBtn,数组中索引为0,所以 weekday -1），2 为星期一
-        self.selectedBtn = _weekdays[(weekday - 1)].btn;
+        _weakSelf.selectedBtn = _weakSelf->_weekdays[(weekday - 1)].btn;
     }];
     [self setWeekdays:_currentDate];
 }
 
 -(void)setWeekdays:(NSDate *)currDate
 {
+
     NSDate*             date;
     __block NSInteger   index;
     
     [self getDay:_currentDate weekday:^(NSDateComponents *dateCompo) {
-        for (index = 0; index < kWeekdayCount; index++)if(_weekdays[index].tag == _selectedBtn.tag)[self setWeekdays:dateCompo Btn:_selectedBtn Lab:_weekdays[index].lab];
+        for (index = 0; index < kWeekdayCount; index++)if(_weekdays[index].tag == _selectedBtn.tag)[_weakSelf setWeekdays:dateCompo Btn:(CalendarButton*)_weakSelf.selectedBtn];
     }];
     //设置选中按钮前面几个button或者label数据
     for(int index = 0; index < _selectedBtn.tag;index++)
     {
         date = [NSDate dateWithTimeInterval:-(_selectedBtn.tag - index) * kSecsOfDay sinceDate:_currentDate];
         [self getDay:date weekday:^(NSDateComponents *dateCompo) {
-             [self setWeekdays:dateCompo Btn:_weekdays[index].btn Lab:_weekdays[index].lab];
+             [_weakSelf setWeekdays:dateCompo Btn:(CalendarButton*)_weakSelf->_weekdays[index].btn];
         }];
     }
     //设置选中按钮后面几个button或者label数据
@@ -58,22 +67,24 @@
     {
         date = [NSDate dateWithTimeInterval:(index - _selectedBtn.tag) * kSecsOfDay  sinceDate:_currentDate];
         [self getDay:date weekday:^(NSDateComponents *dateCompo) {
-            [self setWeekdays:dateCompo Btn:_weekdays[index].btn Lab:_weekdays[index].lab];
+            [_weakSelf setWeekdays:dateCompo Btn:(CalendarButton*)_weakSelf->_weekdays[index].btn];
         }];
     }
     [self setCurrCalendarTitle];
-    
     if([_delegate respondsToSelector:@selector(dayBtnClicked:)])[_delegate dayBtnClicked:_currentDate];
 }
 
--(void)setWeekdays:(NSDateComponents*)dateCompo Btn:(UIButton*)btn Lab:(UILabel*)lab
+-(void)setWeekdays:(NSDateComponents*)dateCompo Btn:(CalendarButton*)btn
 {
     NSArray*           nonArrs;
     
-    if(!dateCompo || !btn || !lab) return;
-    [btn setTitle:[NSString stringWithFormat:@"%ld",[dateCompo day]] forState:UIControlStateNormal];
+    if(!dateCompo || !btn) return;
+  
     nonArrs = [self LunarForSolarYear:(int)dateCompo.year Month:(int)dateCompo.month Day:(int)dateCompo.day];
-    [lab setText:nonArrs[1]];
+    btn.topTitle = [NSString stringWithFormat:@"%ld",[dateCompo day]];
+    [btn setTitle:@"" forState:UIControlStateNormal];
+    btn.bottomTitle = nonArrs[1];
+    [btn setNeedsDisplay];
 }
 
 -(void)getDay:(NSDate*)date weekday:(void (^)(NSDateComponents* dateCompo)) weekday
@@ -91,10 +102,12 @@
 - (IBAction)btnClick:(id)sender
 {
     _previousBtn = _selectedBtn;
-    self.selectedBtn = (UIButton*)sender;
+    self.selectedBtn = (CalendarButton*)sender;
     _currentDate = [NSDate dateWithTimeInterval: (_selectedBtn.tag - _previousBtn.tag) * kSecsOfDay sinceDate:_currentDate];
+    
     [self setCurrCalendarTitle];
     if([self.delegate respondsToSelector:@selector(dayBtnClicked:)])[self.delegate dayBtnClicked:_currentDate];
+
 }
 
 - (IBAction)lastWeekBtnClick:(id)sender
@@ -108,7 +121,7 @@
 
 - (IBAction)selectCalendarBtnClick:(id)sender
 {
- 
+   
 }
 
 - (IBAction)nextWeekBtnClick:(id)sender
@@ -120,21 +133,24 @@
     [self setWeekdays:_currentDate];
 }
 
--(void)setSelectedBtn:(UIButton *)selectedBtn
+-(void)setSelectedBtn:(CalendarButton *)selectedBtn
 {
-    NSInteger        index;
+    NSInteger           index;
     
     if(_selectedBtn != selectedBtn)
     {
         _selectedBtn = selectedBtn;
-        [_selectedBtn setTintColor:[UIColor redColor]];
-        [_selectedBtn setBackgroundImage:[UIImage imageNamed:@"weekday_selected.png"] forState:UIControlStateNormal];
+        _selectedBtn.btnSelected = YES;
+        
+        [_selectedBtn setBackgroundImage:[UIImage imageNamed:@"calendarSelected"] forState:UIControlStateNormal];
+        [_selectedBtn setNeedsDisplay];
         for (index = 0; index < kWeekdayCount; index++)
         {
             if(_selectedBtn.tag != _weekdays[index].btn.tag)
             {
                 [_weekdays[index].btn setBackgroundImage:nil forState:UIControlStateNormal];
-                [_weekdays[index].btn setTintColor:nil];
+                _weekdays[index].btn.btnSelected = NO;
+                [_weekdays[index].btn setNeedsDisplay];
             }
         }
     }
@@ -143,17 +159,18 @@
 -(void)setCurrCalendarTitle
 {
     NSDateFormatter*    dateFormatter;
-   __block NSArray*     nonArrs;
+    __block NSArray*     nonArrs;
     NSString*           nonStr;
     
     dateFormatter = [[NSDateFormatter alloc]init];
-    [dateFormatter setDateFormat:@"当前日历:yyyy年MM月dd日"];
-    _currCalendarLabel.font =[UIFont systemFontOfSize:10];
+    [dateFormatter setDateFormat:@"阳历:yyyy年MM月dd日"];
+    _currCalendarLabel.font =[UIFont boldSystemFontOfSize:15];
     [self getDay:_currentDate weekday:^(NSDateComponents *dateCompo) {
-        nonArrs = [self LunarForSolarYear:(int)dateCompo.year Month:(int)dateCompo.month Day:(int)dateCompo.day];
+        nonArrs = [_weakSelf LunarForSolarYear:(int)dateCompo.year Month:(int)dateCompo.month Day:(int)dateCompo.day];
     }];
     nonStr = [NSString stringWithFormat:@" 农历:%@月%@",nonArrs[0],nonArrs[1]];
     _currCalendarLabel.text = [[dateFormatter stringFromDate:_currentDate] stringByAppendingString:nonStr];
+
 }
 
 -(NSArray *)LunarForSolarYear:(int)wCurYear Month:(int)wCurMonth Day:(int)wCurDay
@@ -253,6 +270,6 @@
         _delegate = delegate;
         if([_delegate respondsToSelector:@selector(dayBtnClicked:)])[_delegate dayBtnClicked:_currentDate];
     }
-    //
+    
 }
 @end
